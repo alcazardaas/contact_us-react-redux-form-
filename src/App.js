@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import { Values } from "redux-form-website-template";
+import './assets/css/app.css'
+
 import ContactUs from './containers/contactus_container'
 
-class App extends Component {
-
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <ContactUs />
+      <div className='container-fluid container-fluid--my'>
+        <main>
+          <ContactUs />
+        </main>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

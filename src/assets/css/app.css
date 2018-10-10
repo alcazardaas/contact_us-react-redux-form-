@@ -1,5 +1,5 @@
-@import url('./assets/vendors/normalize.css');
-@import url('./assets/vendors/skeleton.css');
+@import url('./../vendor/normalize.css');
+@import url('./../vendor/skeleton.css');
 body {
   margin: 0;
   padding: 0;
@@ -152,4 +152,19 @@ input.search-input:focus {
 #tab1:checked~.tab-content-wrapper #tab-content-1, #tab2:checked~.tab-content-wrapper #tab-content-2, #tab3:checked~.tab-content-wrapper #tab-content-3, #tab4:checked~.tab-content-wrapper #tab-content-4 {
   position: relative;
   top: 0px;
+}
+
+/*   All Contact Us Info    */
+
+.tablecontainer {
+  padding-top: 5%
+}
+
+.div-list:nth-child(odd) {
+  background: #E5E5E5;
+}
+
+.list-item {
+  border-bottom: 1px solid #999;
+  padding: 2% 0;
 }
