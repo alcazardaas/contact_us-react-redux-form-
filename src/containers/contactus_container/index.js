@@ -5,6 +5,12 @@ import ContactUsData from './../../components/contact_us_data'
 
 class ContactsUs extends React.Component {
 
+  submit = values => {
+    //this.props.createClient(values)
+    //history.push('/home')
+    alert(values);
+}
+
   setGender(event) {
   }
 
@@ -19,7 +25,7 @@ class ContactsUs extends React.Component {
 
           <div className="tab-content-wrapper">
             <div id="tab-content-1" className="tab-content">
-              <ContactUs />
+              <ContactUs onSubmit={this.submit} />
             </div>
             <div id="tab-content-2" className="tab-content">
               <ContactUsData />
