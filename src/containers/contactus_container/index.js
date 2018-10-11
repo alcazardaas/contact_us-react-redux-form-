@@ -14,19 +14,34 @@ class ContactsUs extends React.Component {
   constructor() {
     super();
     this.state = {
-      loaded: 'non'
+      contactusData: []
     }
   }
 
   async componentWillMount() {
-    this.props.getAllContactUs()
+    await this.props.getAllContactUs()
+    this.setState({
+      contactusData: this.props.contactus
+    })
+  }
 
+  async componentDidMount() {
+    this.setState({
+      contactusData: this.props.contactus
+    })
+  }
+
+  componentDidUpdate(preProps) {
+    if (this.props.contactus !== preProps.contactus) {
+      this.setState({
+        contactusData: this.props.contactus
+      })
+    }
   }
 
   submit = values => {
     values = { ...values, "id": (Math.floor((1 + Math.random()) * 0x10000)) }
     this.props.addContactUs(values)
-    this.props.getAllContactUs()
     this.props.reset()
   }
 
@@ -35,12 +50,7 @@ class ContactsUs extends React.Component {
 
   render() {
 
-    var { isLoaded, contactus, contact, error } = this.props
-
-    var cont = contactus
-    
-    if (contact.length > contactus.length)
-      cont = contact
+    var { isLoaded, error } = this.props
 
     return (
       isLoaded ?
@@ -56,7 +66,7 @@ class ContactsUs extends React.Component {
                 <ContactUs onSubmit={this.submit} />
               </div>
               <div id="tab-content-2" className="tab-content">
-                <ContactUsData contactus={cont} />
+                <ContactUsData contactus={this.state.contactusData} />
               </div>
             </div>
           </div>
@@ -70,9 +80,9 @@ class ContactsUs extends React.Component {
 
 const mapStateToProps = state => ({
   contact: state.createContactUs.contactus,
-  contactus: state.contactus.contactus,
+  contactus: state.contactus.contactus || [],
   isLoaded: state.contactus.isLoaded,
-  error: state.contactus.error
+  error: state.contactus.error,
 })
 
 const mapDispatchToProps = {
