@@ -6,7 +6,7 @@ export default function addcontactus(contactus) {
   return async dispatch => {
     // Initiate loading state
     dispatch({
-      type: a.CONTACTUS_GETALL_REQUEST
+      type: a.CREATE_DATA_REQUEST
     })
 
     try {
@@ -24,13 +24,13 @@ export default function addcontactus(contactus) {
       const result = await response.json()
       // Update payload in reducer on success
       dispatch({
-        type: a.CONTACTUS_UPDATE,
+        type: a.CREATE_DATA_SUCCESS,
         payload: result
       })
     } catch (err) {
       // Update error in reducer on failure
       dispatch({
-        type: a.CONTACTUS_GETALL_FAILURE,
+        type: a.CREATE_DATA_FAILURE,
         error: err
       })
     }

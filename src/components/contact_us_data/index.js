@@ -48,7 +48,7 @@ class AllContactUs extends React.Component {
           <h3>Contact Us Information</h3>
         </div>
 
-        <input value={this.state.search} onChange={this.updateSearch.bind(this)} className='search-input' type='text' id='search-bar' placeholder='SEARCH' />
+        <input value={this.state.search} onChange={this.updateSearch.bind(this)} className='search-input' type='text' id='search-bar' placeholder='SEARCH BY FIRST NAME' />
 
         <div className="tablecontainer">
           {items2}

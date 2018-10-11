@@ -1,22 +1,33 @@
 import React from 'react'
 import 'babel-polyfill'
+import { reset, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 
 import ContactUs from './../../components/contact_us'
 import ContactUsData from './../../components/contact_us_data'
 
 import getAllContactUs from './../../redux/actionCreators/contactus'
+import addContactUs from './../../redux/actionCreators/addContactUs'
 
 class ContactsUs extends React.Component {
 
-  async componentDidMount() {
+  constructor() {
+    super();
+    this.state = {
+      loaded: 'non'
+    }
+  }
+
+  async componentWillMount() {
     this.props.getAllContactUs()
+
   }
 
   submit = values => {
-    //this.props.createClient(values)
-    //history.push('/home')
-    alert(values);
+    values = { ...values, "id": (Math.floor((1 + Math.random()) * 0x10000)) }
+    this.props.addContactUs(values)
+    this.props.getAllContactUs()
+    this.props.reset()
   }
 
   setGender(event) {
@@ -24,7 +35,12 @@ class ContactsUs extends React.Component {
 
   render() {
 
-    var { isLoaded, contactus, error } = this.props
+    var { isLoaded, contactus, contact, error } = this.props
+
+    var cont = contactus
+    
+    if (contact.length > contactus.length)
+      cont = contact
 
     return (
       isLoaded ?
@@ -40,7 +56,7 @@ class ContactsUs extends React.Component {
                 <ContactUs onSubmit={this.submit} />
               </div>
               <div id="tab-content-2" className="tab-content">
-                <ContactUsData contactus={contactus} />
+                <ContactUsData contactus={cont} />
               </div>
             </div>
           </div>
@@ -53,13 +69,19 @@ class ContactsUs extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  contact: state.createContactUs.contactus,
   contactus: state.contactus.contactus,
   isLoaded: state.contactus.isLoaded,
   error: state.contactus.error
 })
 
 const mapDispatchToProps = {
-  getAllContactUs
+  getAllContactUs,
+  addContactUs
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsUs)
+const reduxFormConf = {
+  form: 'simple',
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(reduxFormConf)(ContactsUs))
